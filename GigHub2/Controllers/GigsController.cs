@@ -26,14 +26,15 @@ namespace GigHub2.Controllers
 
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(GigFormViewModel viewModel)
         {
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
             {
                 viewModel.Genres = _context.Genres.ToList();
                 return View("Create", viewModel);
             }
-                
+
 
             var genre = _context.Genres.Single(g => g.ID == viewModel.Genre);
             var gig = new Gig
